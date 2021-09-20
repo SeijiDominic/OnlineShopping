@@ -1,61 +1,43 @@
 package com.dominic.OnlineShopping.entity;
 
-import com.dominic.OnlineShopping.entity.Product;
-import com.dominic.OnlineShopping.exceptions.DemandExceededStockException;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
-@Table(name = "order")
+@Table(name = "orders")
 public class Order {
     @Id
-    private Long id;
-    @Column(name = "cid")
-    private Long cid;
-    @Column(name = "pid")
-    private Long pid;
-    private Integer quantity;
-    private Double total = 0.0;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long ID;
+
+    @Column(name = "vendor_id")
+    private Long vendorID;
+
+    @Column(name = "item_id")
+    private Long itemID;
 
     public Order() {}
 
-    public Order(Long pid, Integer quantity) {
-        this.pid = pid;
+    public Order(Long ID, Long vendorID, Long itemID) {
+        this.ID = ID;
+        this.vendorID = vendorID;
+        this.itemID = itemID;
     }
 
-    public Long getId() {
-        return id;
+    public Order(Long vendorID, Long itemID) {
+        this.vendorID = vendorID;
+        this.itemID = itemID;
     }
 
-    public Double getTotal() {
-        return total;
+    public Long getID() {
+        return ID;
     }
 
-    public Integer getQuantity() {
-        return quantity;
+
+    public Long getVendorID() {
+        return vendorID;
     }
 
-    public Long getCid() {
-        return cid;
-    }
-
-    public Long getPid() {
-        return pid;
-    }
-
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
-    }
-
-    public void setTotal(Double total) {
-        this.total = total;
-    }
-
-    @Override
-    public String toString() {
-        return String.format("PID: %s\nQuantity: %d\nSub-total: %.2f", pid, quantity, total);
+    public Long getItemID() {
+        return itemID;
     }
 }

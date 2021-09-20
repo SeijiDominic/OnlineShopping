@@ -1,12 +1,6 @@
 package com.dominic.OnlineShopping.entity;
 
-import com.dominic.OnlineShopping.model.Vendor;
-import org.springframework.stereotype.Component;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /*
 id BIGINT PRIMARY KEY,
@@ -22,32 +16,55 @@ id BIGINT PRIMARY KEY,
 @Table(name = "product")
 public final class Product {
     @Id
-    private Long id;
-    @Column(name = "vid")
-    private Long vid;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long ID;
+
     @Column(name = "name")
     private String name;
+
+    @Column(name = "description")
+    private String description;
+
+    @Column(name = "vendor_id")
+    private Long vendorID;
+
     @Column(name = "stock")
     private Integer stock;
+
     @Column(name = "price")
     private Double price;
 
     public Product() {}
 
-    public Product(Long vid, String name, Integer stock, Double price) {
-        this.vid = vid;
+    public Product(Long vendorId, String name, String description, Integer stock, Double price) {
+        this.vendorID = vendorId;
         this.name = name;
+        this.description = description;
         this.stock = stock;
         this.price = price;
     }
 
+    public Product(String name, String description, Integer stock, Double price) {
+        this.name = name;
+        this.description = description;
+        this.stock = stock;
+        this.price = price;
+    }
 
-    public Long getVendor() {
-        return vid;
+    public Long getID() {
+        return ID;
+    }
+
+    public Long getVendorID() {
+        return vendorID;
     }
 
     public String getName() {
         return name;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public Integer getStock() {
@@ -64,6 +81,13 @@ public final class Product {
 
     @Override
     public String toString() {
-        return String.format("Name: %s\n Vendor: %s\n Price: %.2f\n Available: %d\n", name, vid, price, stock);
+        return "Product{" +
+                "id=" + ID +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", vendorId=" + vendorID +
+                ", stock=" + stock +
+                ", price=" + price +
+                '}';
     }
 }

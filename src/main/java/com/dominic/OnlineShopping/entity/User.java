@@ -1,27 +1,35 @@
 package com.dominic.OnlineShopping.entity;
 
-import com.dominic.OnlineShopping.model.OrderList;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Table(name = "user")
 public class User {
     @Id
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long ID;
+
     @Column(name="first")
     private String firstName;
+
     @Column(name="last")
     private String lastName;
-    @Column(name="address")
-    private String address;
-    @Column(name = "isvendor")
-    private Boolean isVendor;
 
+    public User() {}
 
-    public Long getId() {
-        return id;
+    public User(Long id, String firstName, String lastName) {
+        this.ID = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    public User(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    public Long getID() {
+        return ID;
     }
 
     public String getFirstName() {
@@ -30,9 +38,5 @@ public class User {
 
     public String getLastName() {
         return lastName;
-    }
-
-    public String getAddress() {
-        return address;
     }
 }
